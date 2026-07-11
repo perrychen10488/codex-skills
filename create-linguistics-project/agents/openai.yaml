@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Linguistics Project"
+  short_description: "Scaffold a structured linguistics research project"
+  default_prompt: "Use $create-linguistics-project to scaffold a new linguistics research project."
