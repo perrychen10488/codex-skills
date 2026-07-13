@@ -5,6 +5,7 @@ Reusable skills for Codex.
 ## Available skills
 
 - `create-linguistics-project`: scaffold a structured linguistics research project.
+- `rebuild-cv-in-latex`: rebuild a CV as an editable Overleaf project using a reference document's visual style while preserving the source content.
 
 ## Install
 
