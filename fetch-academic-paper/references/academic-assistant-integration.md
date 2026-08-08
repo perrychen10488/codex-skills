@@ -28,8 +28,12 @@ explicitly passed.
 Call:
 
 ```powershell
-conda run -n academic-paper-fetch academic-paper-fetch fetch "<DOI>" --output "<PATH>" --json
+uv run --project "<CLI_PROJECT_DIR>" academic-paper-fetch fetch "<DOI>" --output "<PATH>" --json
 ```
+
+Resolve `<CLI_PROJECT_DIR>` using `ACADEMIC_PAPER_FETCH_DIR` or a unique sibling
+checkout, as described in the parent skill. The checkout must contain
+`pyproject.toml`, `uv.lock`, and `.python-version`.
 
 Parse exactly one JSON object from stdout. Schema version 1 contains:
 

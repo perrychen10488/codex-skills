@@ -5,8 +5,8 @@ description: Fetch a legitimate academic full-text PDF by DOI through the academ
 
 # Fetch an academic paper
 
-Use the separately installed `academic-paper-fetch` CLI. Do not implement download
-routes inside this skill.
+Use the separately checked-out `academic-paper-fetch` uv project. Do not implement
+download routes inside this skill.
 
 ## Workflow
 
@@ -17,25 +17,32 @@ routes inside this skill.
    - For an `academic_assistant` project, read `PDF_STORAGE_DIR` from its environment
      configuration and place the PDF there.
    - Otherwise allow the CLI to use its configured `output_dir`.
-3. Verify the CLI configuration before the first fetch:
+3. Resolve the CLI project directory. Prefer `ACADEMIC_PAPER_FETCH_DIR`; otherwise
+   locate a sibling `academic-paper-fetch` checkout. Require `pyproject.toml`,
+   `uv.lock`, and `.python-version`. Ask for the path if no unique checkout exists.
+4. Verify the CLI configuration before the first fetch:
 
    ```powershell
-   conda run -n academic-paper-fetch academic-paper-fetch doctor --json
+   uv run --project "<CLI_PROJECT_DIR>" academic-paper-fetch doctor --json
    ```
 
-4. Fetch exactly one paper and require JSON output:
+5. Fetch exactly one paper and require JSON output:
 
    ```powershell
-   conda run -n academic-paper-fetch academic-paper-fetch fetch "<DOI>" --json
+   uv run --project "<CLI_PROJECT_DIR>" academic-paper-fetch fetch "<DOI>" --json
    ```
 
    Add `--output "<PATH>"` when an explicit path was selected. Add `--force` only
    when the user explicitly asks to replace or re-download an existing valid PDF.
-5. Parse the single JSON envelope from stdout. Treat stderr as diagnostic text, not
+6. Parse the single JSON envelope from stdout. Treat stderr as diagnostic text, not
    as an API response.
-6. Report the saved path, successful route, byte count, and SHA-256. On failure,
+7. Report the saved path, successful route, byte count, and SHA-256. On failure,
    distinguish configuration errors, exhausted routes, transient failures, and
    filesystem errors using `error_category` and the process exit code.
+
+Use the current local checkout. Do not run `git pull`, change branches, or update the
+CLI repository unless the user explicitly requests an update. `uv run` may synchronize
+the project environment from its committed lockfile.
 
 ## Failure handling
 

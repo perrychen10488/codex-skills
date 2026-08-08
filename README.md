@@ -23,14 +23,19 @@ Restart Codex after installation. You can then ask Codex to create a linguistics
 
 ## Fetch academic papers
 
-Create the companion CLI environment from the sibling `academic-paper-fetch` repo:
+Set up the sibling `academic-paper-fetch` uv project:
 
 ```powershell
 cd ..\academic-paper-fetch
-conda env create -f environment.yml
-conda activate academic-paper-fetch
-academic-paper-fetch doctor --json
+uv python install 3.11
+uv sync
+$env:ACADEMIC_PAPER_FETCH_DIR=(Resolve-Path .).Path
+uv run academic-paper-fetch doctor --json
 ```
+
+The CLI pins Python 3.11 in `.python-version` and dependencies in `uv.lock`. Set
+`ACADEMIC_PAPER_FETCH_DIR` before launching Codex, or keep the CLI as a uniquely
+identifiable sibling checkout so the skill can resolve it.
 
 Configure Unpaywall and any optional publisher API keys through environment
 variables:
@@ -59,6 +64,6 @@ Use $fetch-academic-paper to fetch 10.1186/s12984-023-01168-x.
 The CLI can also be called directly:
 
 ```powershell
-conda run -n academic-paper-fetch academic-paper-fetch fetch `
+uv run --project "$env:ACADEMIC_PAPER_FETCH_DIR" academic-paper-fetch fetch `
   10.1186/s12984-023-01168-x --json
 ```
