@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fetch Academic Paper"
+  short_description: "Fetch legitimate academic PDFs by DOI"
+  default_prompt: "Use $fetch-academic-paper to retrieve an academic PDF by DOI."
