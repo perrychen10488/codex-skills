@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rebuild CV in LaTeX"
+  short_description: "Rebuild CVs as editable Overleaf projects"
+  default_prompt: "Rebuild the supplied CV as an editable Overleaf LaTeX project using the supplied reference PDF style while preserving all CV content, then compile and visually verify it."

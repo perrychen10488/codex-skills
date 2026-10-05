@@ -7,6 +7,7 @@ Reusable skills for Codex.
 - `create-linguistics-project`: scaffold a structured linguistics research project.
 - `fetch-academic-paper`: retrieve a legitimate academic PDF by DOI through the
   separately installed `academic-paper-fetch` CLI.
+- `rebuild-cv-in-latex`: rebuild a CV as an editable Overleaf project using a reference document's visual style while preserving the source content.
 
 ## Install
 
